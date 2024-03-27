@@ -1,0 +1,18 @@
+@font-face {
+	font-family: "Prompt";
+	src: url("../woff/fw400_th.woff2") format("woff2");
+	font-weight: 400;
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Prompt";
+	src: url("../woff/fw400_latin.woff2") format("woff2");
+	unicode-range: U+0E00–U+0E7F;
+	font-weight: 400;
+	font-weight: normal;
+	font-style: normal;
+}
+.font-prompt {font-family: 'Prompt' !important}
+html, body, h5 {font-family: 'Prompt' !important}
+
