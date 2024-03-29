@@ -10,7 +10,7 @@ return new class extends Migration
 	 * Run the migrations.
 	 */
 	public function up(): void {
-		Schema::create('d506_data_hosp', function (Blueprint $table) {
+		Schema::connection('mysql2')->create('d506_data_hosp', function (Blueprint $table) {
 			$table->id()->comment('id');
 
 			$table->string('hospital_code', 15)->nullable()->comment('รหัสหน่วยบริการ (รหัสมาตรฐาน 5 หลัก) ที่ส่งข้อมูล');

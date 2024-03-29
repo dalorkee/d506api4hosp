@@ -8,7 +8,7 @@ class D506Hosp extends Model {
 	protected $table = 'd506_data_hosp';
 	protected $primaryKey = 'id';
 	public $timestamps = true;
-	protected $connection = 'mysql';
+	protected $connection = 'mysql2';
 	protected $fillable = [
 		'hospital_code',
 		'hospital_name',

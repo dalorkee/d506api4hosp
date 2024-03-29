@@ -64,7 +64,7 @@ class ApiConfigController extends Controller
 			return redirect()->back()->with(key: 'success', value: 'บันทึกข้อมูลสำเร็จ');
 		} catch (\Exception $e) {
 			Log::error($e->getMessage());
-			return redirect()->back()->with(key: 'success', value: 'บันทึกข้อมูลสำเร็จ');
+			return redirect()->back()->with(key: 'error', value: $e->getMessage());
 		}
 	}
 

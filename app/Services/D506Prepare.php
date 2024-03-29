@@ -33,7 +33,7 @@ class D506Prepare implements PrepareData
 
 			$person['cid'] = trim($item->cid, " \n\r\t\v\x00") ?? ""; // not null
 			$person['passport_no'] = (!empty($item->passport_no)) ? (string)$item->passport_no : "";
-			$person['prefix'] = (!empty($item->perfix)) ? $item->perfix : ""; //
+			$person['prefix'] = (!empty($item->prefix)) ? $item->prefix : ""; //
 			$person['first_name'] = (!empty($item->first_name)) ? trim($item->first_name) : "";
 			$person['last_name'] = (!empty($item->last_name)) ? trim($item->last_name) : "";
 			$person['nationality'] = (string)$item->nationality ?? "";

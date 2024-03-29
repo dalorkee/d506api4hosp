@@ -132,15 +132,17 @@ $('#sendD506').on('submit', function(e) {
 		method: "POST",
 		url: "{{ route('d506.send.to.dds') }}",
 		dataType: "json",
-		success: function(response) {
-			if (response['status'] == 'success') {
+		complete: function(response) {
+            let obj = jQuery.parseJSON(response.responseText);
+            alert(obj.state);
+			if (obj.state == 'success') {
 				$('#btn_submit').prop('disabled', false);
 				$('#spinner').hide();
 				Swal.fire({
 					type: 'success',
 					icon: 'success',
 					title: 'Completed',
-					html: response['message'],
+					html: obj.message,
 					showCloseButton: true,
 					confirmButtonText: "ตกลง",
 					footer: "D506 API",
@@ -159,7 +161,7 @@ $('#sendD506').on('submit', function(e) {
 					type: 'error',
 					icon: 'error',
 					title: 'Error',
-					html: response['message'],
+					html: obj.message,
 					showCloseButton: true,
 					confirmButtonText: "ตกลง",
 					footer: "D506 API",
@@ -172,9 +174,6 @@ $('#sendD506').on('submit', function(e) {
 					}
 				});
 			}
-		},
-		error: function(xhr, status, error) {
-			console.error(error);
 		}
 	});
 });
