@@ -217,7 +217,7 @@ class D506Prepare implements PrepareData
 	public function setDataToArray(object $item): ?array {
 		$plain_data['cid'] = $item->cid;
 		$plain_data['passport_no'] = $item->passport_no;
-		$plain_data['prefix'] = $item->perfix;
+		$plain_data['prefix'] = $item->prefix;
 		$plain_data['first_name'] = $item->first_name;
 		$plain_data['last_name'] = $item->last_name;
 		$plain_data['gender'] = $item->gender;

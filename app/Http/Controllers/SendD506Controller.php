@@ -43,10 +43,6 @@ class SendD506Controller extends Controller
 
 	public function sendToDDS(): mixed {
 		try {
-            return response()->json([
-                'state' => 'success',
-                'message' => 'ไม่พบข้อมูลที่ต้องการส่งในตาราง'
-            ], 404);
 			if (Gate::none(['isAdmin', 'isStaff'])) {
 				return redirect()->back()->with('error', 'Permission denied');
 			}
@@ -55,38 +51,37 @@ class SendD506Controller extends Controller
 			D506Hosp::where('id', '<=', 5)->chunk(5, function($data) use (&$group_of_id) {
 				// Hosp2Bms::chunk(100, function($data) use (&$group_of_id) {
 				foreach ($data as $item) {
-					$json_data = $this->d506PrepareService?->setDataToJson(item: $item);
-
+					$json_data = $this->d506PrepareService->setDataToJson(item: $item);
 					if (!is_null($json_data)) {
-						$plain_data = $this->d506PrepareService?->setDataToArray(item: $item);
-						$insert_id = $this->d506StoreService?->store(json: $json_data, data: $plain_data);
+						$plain_data = $this->d506PrepareService->setDataToArray(item: $item);
+						$insert_id = $this->d506StoreService->store(json: $json_data, data: $plain_data);
 						array_push($group_of_id, $insert_id);
 					}
 				}
 			});
 			if (count($group_of_id) > 0) {
 				$response = $this->d506SendService->send506MassAssign(group_of_id: $group_of_id);
-				if ($response) {
+				if ($response == true) {
 					return response()->json([
-						'status' => 'success',
+						'textStatus' => 'success',
 						'message' => 'ส่งข้อมูล D506 สำเร็จ'
 					], 200);
 				} else {
 					return response()->json([
-						'status' => 'error',
+						'textStatus' => 'error',
 						'message' => 'ไม่สามารถส่งข้อมูลได้ โปรดตรวจสอบ'
 					], 503);
 				}
 			} else {
 				return response()->json([
-					'status' => 'error',
-					'message' => 'ไม่พบข้อมูลที่ต้องการส่งในตาราง'
-				], 500);
+					'textStatus' => 'error',
+					'message' => 'ไม่พบข้อมูลที่ต้องการส่งในตาราง HIS'
+				], 404);
 			}
 		} catch (\Exception $e) {
 			Log::error('ส่งข้อมูลไม่สำเร็จ: '.$e->getMessage());
 			return response()->json([
-				'status' => 'error',
+				'textStatus' => 'error',
 				'message' => $e->getMessage()
 			], 500);
 		}
