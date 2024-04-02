@@ -21,4 +21,5 @@ yarn-error.log
 .lock
 .log
 .bkk
-.composer.lock
+composer.lock
+package-lock.json
